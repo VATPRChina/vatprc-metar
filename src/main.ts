@@ -2,7 +2,7 @@ import { createServer } from "node:http";
 
 if (!process.env["RUDI_METAR_SERVER"]) {
   console.error(
-    "Rudi's metar server address is not provided. Please provide it in RUDI_METAR_SERVER environment variable.",
+    "Rudi's metar server address is not provided. Please provide it in RUDI_METAR_SERVER environment variable."
   );
   process.exit(1);
 }
@@ -19,7 +19,7 @@ const server = createServer((req, res) => {
   try {
     if (Date.now() - cacheTime > 1000 * 120) {
       console.log(
-        `Update METAR data ${new Date().toISOString()} - ${new Date(cacheTime).toISOString()}`,
+        `Update METAR data ${new Date().toISOString()} - ${new Date(cacheTime).toISOString()}`
       );
       fetch(rudiMetarServer)
         .then((r) => r.text())
@@ -32,7 +32,7 @@ const server = createServer((req, res) => {
     }
 
     const url = new URL(`http://localhost${req.url}`);
-    const id = url.searchParams.get("id");
+    const id = url.searchParams.get("id") ?? req.url?.slice(1);
     if (!id) {
       res.writeHead(400, { "Content-Type": "text/plain" });
       res.end("No METAR found");
