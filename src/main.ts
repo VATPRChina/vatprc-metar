@@ -32,7 +32,7 @@ const server = createServer((req, res) => {
     }
 
     const url = new URL(`http://localhost${req.url}`);
-    const id = url.searchParams.get("id");
+    const id = url.searchParams.get("id") ?? req.url?.slice(1);
     if (!id) {
       res.writeHead(400, { "Content-Type": "text/plain" });
       res.end("No METAR found");
